@@ -1,7 +1,7 @@
 import json
 from collections import OrderedDict
 import tornado.websocket
-from main import check_circuit
+from check import check_circuit
 from userCircuit import userCircuit
 from lvl import levels
 

@@ -44,7 +44,7 @@ def userCircuit(usr_input):
             i += 1
             if usr_cir[i] == "0" and usr_cir[i+1] == "1":
                 qc.cx([0],[1])
-            elif usr_cir[i] == "1" and usr_cir[i+1] == "1":
+            elif usr_cir[i] == "1" and usr_cir[i+1] == "0":
                 qc.cx([1],[0])
             i += 2
 
