@@ -51,9 +51,27 @@ level_2=Level(2,'|00>','1/sqrt(2)*(|00>+|11>)')
 level_2.circ.h([0])
 level_2.circ.cx([0],[1])
 ##################################################################
+level_3=Level(2,'|00>','1/sqrt(2)*(|00>-|11>)')
 
+#Here we create the circuit
+level_3.circ.x([0])
+level_3.circ.h([0])
+level_3.circ.cx([0],[1])
 
+level_4=Level(2,'|00>','1/sqrt(2)*(|01>+|10>)')
 
+#Here we create the circuit
+level_4.circ.h([0])
+level_4.circ.cx([0],[1])
+level_4.circ.x([1])
+
+level_5=Level(2,'|00>','1/sqrt(2)*(|01>-|10>)')
+
+#Here we create the circuit
+level_5.circ.h([0])
+level_5.circ.cx([0],[1])
+level_5.circ.z([0])
+level_5.circ.x([1])
 ###################### CORE OF THE GAME ##########################################
 
 # For the moment just for level 1:
