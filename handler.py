@@ -1,4 +1,5 @@
 import json
+import random
 from collections import OrderedDict
 import tornado.websocket
 from check import check_circuit
@@ -11,6 +12,7 @@ class DuelGroup:
     def __init__(self):
         self.members = []
         self.end = False
+        self.level = levels[1]#random.choice(levels)
 
 class MultiHandler(tornado.websocket.WebSocketHandler):
     duel_groups = OrderedDict()
@@ -29,8 +31,8 @@ class MultiHandler(tornado.websocket.WebSocketHandler):
             for member in duel_group.members:
                 member.write_message({
                     'message': 'ready',
-                    'initial_state': levels[1].initial_state,
-                    'final_state': levels[1].final_state,
+                    'initial_state': duel_group.level.initial_state,
+                    'final_state': duel_group.level.final_state,
                     })
 
     def on_message(self, message):
@@ -43,7 +45,7 @@ class MultiHandler(tornado.websocket.WebSocketHandler):
         if message['circ'] == '':
             return
 
-        if not check_circuit(levels[1].circ, userCircuit(message['circ'])):
+        if not check_circuit(duel_group.level.circ, userCircuit(message['circ'])):
             return
 
         duel_group.end = True

@@ -18,6 +18,7 @@ class Level:
         self.initial_state = initial_state # This is a string
         self.final_state = final_state # This also is a string
 
+'''
 ########## LEVEL 1 ##################
 # We insert the initial and the final state strings in the corresponding arguments of the class
 level_1=Level(1,'|0>','1/sqrt(2)*(|0>+|1>)')
@@ -27,6 +28,7 @@ level_1=Level(1,'|0>','1/sqrt(2)*(|0>+|1>)')
 level_1.circ.h([0])
 # --------------------------------------------
 #####################################
+'''
 
 ########## LEVEL 2 ##################
 
@@ -39,6 +41,7 @@ level_2=Level(2,'|00>','1/sqrt(2)*(|00>+|11>)')
 level_2.circ.h([0])
 level_2.circ.cx([0],[1])
 
+'''
 ########## LEVEL 3 ##################
 
 level_3=Level(2,'|00>','1/sqrt(2)*(|00>-|11>)')
@@ -82,7 +85,9 @@ level_7=Level(1,  '1/sqrt(2)*(|0>-|1>)', '|0>')
 #Here we create the circuit
 level_7.circ.h([0])
 level_7.circ.x([0])
+'''
 
 
 # We create a list with the different levels 
-levels=[level_1, level_2, level_3, level_4, level_5, level_6, level_7]
+#levels=[level_1, level_2, level_3, level_4, level_5, level_6, level_7]
+levels=[None, level_2]
