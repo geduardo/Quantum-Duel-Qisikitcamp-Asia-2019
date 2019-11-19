@@ -1,6 +1,7 @@
-# Quantum-Duel--QISKITCAMPASIA
+# Quantum Duel: Be the fastest of the Quantum West
+![alt text](https://github.com/geduardo/Quantum-Duel--QISKITCAMPASIA/blob/master/quantum_duel.jpg)
+## Introduction
 
-This is the repo for the issue #40 of the Qiskit-Camp Asia. The objective is to create a multiplayer quantum game.
 
 ## Members
 @geduardo  
