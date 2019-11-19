@@ -1,5 +1,5 @@
 # Quantum Duel: Be the fastest of the Quantum West
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/geduardo/Quantum-Duel--QISKITCAMPASIA/blob/master/quantum_duel.jpg)
 ## Introduction
 
 
