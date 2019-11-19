@@ -91,7 +91,7 @@
             else {
                 movable.innerText = 'H';
             }
-            main.prepend(movable)
+            main.prepend(movable);
         }
     }
 
@@ -106,6 +106,26 @@
                     var top = Math.round(y / LINE_SPACING) * LINE_SPACING;
                     el.style.left = left + 'px';
                     el.style.top = top + 'px';
+
+                    console.log(left + ', ' + top);
+                    var movable_on_circuit = [...document.getElementsByClassName('movable')].filter(function(movable) {
+                        return ['150px', '200px'].indexOf(movable.style.top) >= 0;
+                    }).sort(function(a, b) {
+                        return parseInt(a.style.left) - parseInt(b.style.left);
+                    });
+                    circ = [];
+                    for(var movable of movable_on_circuit) {
+                        var qubit = -1;
+                        if(movable.style.top == '150px') {
+                            qubit = 0;
+                        }
+                        else {
+                            qubit = 1;
+                        }
+                        circ.push(movable.innerText);
+                        circ.push(qubit);
+                    }
+                    console.log(circ);
                 }
             };
             displacejs(el, options);
