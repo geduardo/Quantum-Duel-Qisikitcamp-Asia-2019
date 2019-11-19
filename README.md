@@ -1,7 +1,7 @@
 # Quantum Duel: Be the fastest of the Quantum West
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+## Introduction
 
-
-This is the repo for the issue #40 of the Qiskit-Camp Asia. The objective is to create a multiplayer quantum game.
 
 ## Members
 @geduardo  
