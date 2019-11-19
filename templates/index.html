@@ -80,7 +80,7 @@
     function makeGates() {
         var main = document.getElementById('main');
 
-        for(var i = 0; i < 10; ++i) {
+        for(var i = 0; i < 15; ++i) {
             var movable = document.createElement('span');
             movable.style.left = i * 50 + 'px';
             movable.style.top = '350px';
@@ -88,8 +88,28 @@
             if(i < 5) {
                 movable.innerText = 'X';
             }
-            else {
+            else if(i < 10) {
                 movable.innerText = 'H';
+            }
+            else {
+                movable.style.height = '100px';
+                movable.style.background = "transparent";
+
+                var line = document.createElement('span');
+                line.style.left = '23px';
+                line.style.top = '25px';
+                line.style.height = '50px';
+                line.style.width = '4px';
+                line.classList.add('line');
+                movable.prepend(line);
+
+                var black_dot = document.createElement('span');
+                black_dot.classList.add('black-dot');
+                movable.prepend(black_dot)
+
+                var black_target = document.createElement('span');
+                black_target.classList.add('black-target');
+                movable.prepend(black_target);
             }
             main.prepend(movable);
         }
@@ -115,6 +135,17 @@
                     });
                     circ = [];
                     for(var movable of movable_on_circuit) {
+                        if(movable.innerText == '') {
+                            // CX
+                            if(movable.style.top == '200px') {
+                                continue;
+                            }
+                            circ.push('CX');
+                            circ.push(0);
+                            circ.push(1);
+                            continue;
+                        }
+
                         var qubit = -1;
                         if(movable.style.top == '150px') {
                             qubit = 0;

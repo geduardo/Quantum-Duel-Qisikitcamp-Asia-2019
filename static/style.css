@@ -21,6 +21,26 @@ p {
     left: 100px;
     text-align: center;
 }
+.black-dot {
+    width: 49px;
+    height: 49px;
+    background-image: url(black-dot.png);
+    position: absolute;
+    background-position: center;
+    background-size: contain;
+    left: 0px;
+    top: 0px;
+}
+.black-target {
+    width: 49px;
+    height: 49px;
+    background-image: url(black-target.png);
+    position: absolute;
+    background-position: center;
+    background-size: contain;
+    left: 0px;
+    top: 50px;
+}
 #countdown {
     display: none;
     font-size:500%;
@@ -33,7 +53,7 @@ p {
     text-align: center;
 }
 .line {
-    background: rgba(105,105,105,0.8);
+    background: black; 
     display: inline-block;
     position: absolute;
 }
