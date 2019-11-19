@@ -1,21 +1,17 @@
-from qiskit import *
 import numpy as np
-from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
-from qiskit import execute, BasicAer
-from qiskit.compiler import transpile
-from qiskit.quantum_info.operators import Operator, Pauli
-from qiskit.quantum_info import process_fidelity
-from qiskit.extensions import RXGate, CnotGate, XGate, HGate
-# Boolean to check the loop
-K = False
-# Function to check if the circuit submitted by the player is correct
+from qiskit import execute, Aer
+
 def check_circuit(reference, user):
-    op_reference=Operator(reference)
-    op_user=Operator(user)
-    if op_user.equiv(op_reference):
-        return True
-    else:
-        return False
+    """
+    Function to check if the circuit submitted by the player is correct
+    """
+
+    backend = Aer.get_backend('statevector_simulator')
+
+    reference_statevector = execute(reference, backend).result().get_statevector(reference)
+    user_statevector = execute(user, backend).result().get_statevector(user)
+
+    return (reference_statevector == user_statevector).all()
 ###################### CHECKERS  ##########################################
 #Select the level
 from lvl import levels
