@@ -8,19 +8,19 @@ from qiskit.quantum_info.operators import Operator, Pauli
 from qiskit.quantum_info import process_fidelity
 from qiskit.extensions import RXGate, CnotGate, XGate, HGate
 
+# Boolean to check the loop
 K = False
-
 # Template for creating circuits:
-
 class Level:
     def __init__(self, size, initial_state, final_state):
         # We create the circuit for the game_mode
         self.q = QuantumRegister(size)
         self.c = ClassicalRegister(size)
+        self.size=size
         self.circ=QuantumCircuit(self.q,self.c)
         self.initial_state = initial_state # This is a string
         self.final_state = final_state # This also is a string
-
+# Function to check if the circuit submitted by the player is correct
 def check_circuit(reference, user):
     op_reference=Operator(reference)
     op_user=Operator(user)
@@ -29,8 +29,7 @@ def check_circuit(reference, user):
     else:
         return False
 
-########## Example 1 for creating a level: ##################
-
+########## LEVEL 1 ##################
 # We insert the initial and the final state strings in the corresponding arguments of the class
 level_1=Level(1,'|0>','1/sqrt(2)*(|0>+|1>)')
 
@@ -38,37 +37,82 @@ level_1=Level(1,'|0>','1/sqrt(2)*(|0>+|1>)')
 #------------REFERENCE CIRCUIT ---------------
 level_1.circ.h([0])
 # --------------------------------------------
-##################################################################
+#####################################
 
-
-########## Example 2 for creating a level: ##################
+########## LEVEL 2 ##################
 
 # We insert the initial and the final state strings in the corresponding arguments of the class
 level_2=Level(2,'|00>','1/sqrt(2)*(|00>+|11>)')
 
 # Here we create the circuit applying the corresponding gates:
-#------------REFERENCE CIRCUIT ----
-# 
-# -----------
+#------------REFERENCE CIRCUIT ------------------------------
+
 level_2.circ.h([0])
 level_2.circ.cx([0],[1])
-##################################################################
 
+########## LEVEL 3 ##################
+
+level_3=Level(2,'|00>','1/sqrt(2)*(|00>-|11>)')
+
+#Here we create the circuit
+level_3.circ.x([0])
+level_3.circ.h([0])
+level_3.circ.cx([0],[1])
+
+#####################################
+
+########## LEVEL 4 ##################
+
+level_4=Level(2,'|00>','1/sqrt(2)*(|01>+|10>)')
+
+#Here we create the circuit
+level_4.circ.h([0])
+level_4.circ.cx([0],[1])
+level_4.circ.x([1])
+
+########## LEVEL 5 ##################
+level_5=Level(2,'|00>','1/sqrt(2)*(|01>-|10>)')
+
+#Here we create the circuit
+level_5.circ.h([0])
+level_5.circ.cx([0],[1])
+level_5.circ.z([0])
+level_5.circ.x([1])
+
+########## LEVEL 6 ##################
+level_6=Level(1, '|0>', '1/sqrt(2)*(|0>-|1>)')
+
+#Here we create the circuit
+level_6.circ.x([0])
+level_6.circ.h([0])
+#####################################
+
+########## LEVEL 7 ##################
+level_7=Level(1,  '1/sqrt(2)*(|0>-|1>)', '|0>')
+
+#Here we create the circuit
+level_7.circ.h([0])
+level_7.circ.x([0])
+
+
+# We create a list with the different levels 
+levels=[level_1, level_2, level_3, level_4, level_5, level_6, level_7]
 
 
 ###################### CORE OF THE GAME ##########################################
+#Select the level
+i=input("Choose a level:")
+i=int(i)-1
 
-# For the moment just for level 1:
+# Print the information for the user
+print("The size of the circuit is " + str(levels[i].size))
+print("The initial state is: " + levels[i].initial_state)
+print(" You need to obtain the state:" + levels[i].final_state)
 
-print("The initial state is: " + level_1.initial_state)
-print(" You need to obtain the state:" + level_1.final_state)
 while K==False:
-    print(" Please, modify the circuit in the file user_circuit.py and then press enter to continue.")
-    input()
-    from user_circuit import*
-    if check_circuit(level_1.circ, ucirc):
+    from user_circuit import ucirc
+    if check_circuit(levels[i].circ, ucirc):
         print('Congratulations! The circuit is correct')
-        K==True
+        K=True
     else:
-        print('The circuit is incorrect. Try again.')
-
+        pass
