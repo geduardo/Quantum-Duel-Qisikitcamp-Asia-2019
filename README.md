@@ -1,4 +1,5 @@
-# Quantum-Duel--QISKITCAMPASIA
+# Quantum Duel: Be the fastest of the Quantum West
+
 
 This is the repo for the issue #40 of the Qiskit-Camp Asia. The objective is to create a multiplayer quantum game.
 
