@@ -54,7 +54,8 @@ def userCircuit(usr_input):
 # In[14]:
 
 
-usr_input = input("user circuit:")
-uc = userCircuit(usr_input)
-print(uc)
+if __name__ == '__main__':
+    usr_input = input("user circuit:")
+    uc = userCircuit(usr_input)
+    print(uc)
 

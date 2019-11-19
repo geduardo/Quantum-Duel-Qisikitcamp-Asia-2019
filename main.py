@@ -18,9 +18,10 @@ def check_circuit(reference, user):
         return False
 ###################### CHECKERS  ##########################################
 #Select the level
-from lvl import levels
-from user_circuit import ucirc
-i=input("Choose a level:")
-i=int(i)-1
-a=check_circuit(levels[i].circ,ucirc)
-print(a)
+if __name__ == '__main__':
+    from lvl import levels
+    from user_circuit import ucirc
+    i=input("Choose a level:")
+    i=int(i)-1
+    a=check_circuit(levels[i].circ,ucirc)
+    print(a)

@@ -8,11 +8,12 @@
     var socket = new WebSocket((location.host.match(/localhost/) ? 'ws://' : 'wss://') + location.host + '/multi');
 
     var duel_group = null;
+    var previous_circ = null;
 
     function sendAction(message) {
         var message = {
             duel_group: duel_group,
-            message: message,
+            circ: message,
         };
         socket.send(JSON.stringify(message));
     }
@@ -43,20 +44,18 @@
                 --countdown.innerText;
 
                 if(countdown.innerText == 0) {
-                    countdown.innerText = 'Push Space!!!';
-                    document.addEventListener('keydown', function(e) {
-                        if(e.keyCode == 32) {
-                            sendAction('Space');
-                        }
-                    });
+                    countdown.style.display = 'none';
+                    makeCircuit();
                     clearInterval(interval_id);
                 }
             }, 1000);
         }
         else if(data.message == 'win') {
+            countdown.style.display = 'block';
             countdown.innerText = 'WIN!';
         }
         else if(data.message == 'lose') {
+            countdown.style.display = 'block';
             countdown.innerText = 'LOSE...';
         }
     };
@@ -125,7 +124,7 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', function() {
+    function makeCircuit() {
         makeGates();
 
         for(var el of document.getElementsByClassName('movable')) {
@@ -172,6 +171,12 @@
                         circ.push(movable.innerText);
                         circ.push(qubit);
                     }
+
+                    var circ = circ.toString();
+                    if(circ != previous_circ) {
+                        sendAction(circ);
+                        previous_circ = circ;
+                    }
                     console.log(circ);
                 }
             };
@@ -179,7 +184,7 @@
         }
 
         makeLines(2);
-    });
+    }
     </script>
   </head>
   <body>

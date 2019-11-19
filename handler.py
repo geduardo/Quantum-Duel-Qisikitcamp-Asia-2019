@@ -1,9 +1,12 @@
 import json
 from collections import OrderedDict
 import tornado.websocket
+from main import check_circuit
+from userCircuit import userCircuit
+from lvl import levels
 
 class DuelGroup:
-    NUMBER_OF_MEMBERS = 3
+    NUMBER_OF_MEMBERS = 2
 
     def __init__(self):
         self.members = []
@@ -24,13 +27,23 @@ class MultiHandler(tornado.websocket.WebSocketHandler):
 
         if len(duel_group.members) >= DuelGroup.NUMBER_OF_MEMBERS:
             for member in duel_group.members:
-                member.write_message({'message': 'ready'})
+                member.write_message({
+                    'message': 'ready',
+                    'initial_state': levels[1].initial_state,
+                    'final_state': levels[1].final_state,
+                    })
 
     def on_message(self, message):
         message = json.loads(message)
         duel_group = self.duel_groups[message['duel_group']]
 
         if duel_group.end:
+            return
+
+        if message['circ'] == '':
+            return
+
+        if not check_circuit(levels[1].circ, userCircuit(message['circ'])):
             return
 
         duel_group.end = True
