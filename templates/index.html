@@ -5,6 +5,27 @@
     <link rel="stylesheet" href="{{ static_url("style.css") }}"/>
     <script src="//cdn.jsdelivr.net/npm/displacejs@1.3.2/dist/displace.min.js"></script>
     <script>
+    var socket = new WebSocket('ws://' + location.host + '/multi');
+
+    function sendAction() {
+        var message = {
+            message: 'hi, ' + Math.random(),
+        };
+        socket.send(JSON.stringify(message));
+    }
+
+    socket.onopen = function(data) {
+        sendAction();
+    };
+
+    socket.onclose = function() {
+    };
+
+    socket.onmessage = function(event) {
+        console.log(event.data);
+    };
+
+
     LINE_SPACING = 30;
     window.addEventListener('DOMContentLoaded', function() {
         var el = document.getElementsByClassName('movable')[0];
