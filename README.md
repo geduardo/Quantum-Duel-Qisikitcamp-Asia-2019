@@ -1,8 +1,13 @@
 # Quantum-Duel--QISKITCAMPASIA
+
 This is the repo for the issue #40 of the Qiskit-Camp Asia. The objective is to create a multiplayer quantum game.
 
-Members:<br>
-@geduardo <br>
-@TRSasasusu <br>
-@unchalisa <br>
-@yoheiwaka <br>
+## Members
+@geduardo  
+@TRSasasusu  
+@unchalisa  
+@yoheiwaka
+
+## Website
+
+[https://quantum-duel.herokuapp.com/](https://quantum-duel.herokuapp.com/)
