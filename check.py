@@ -1,3 +1,4 @@
+import numpy as np
 from qiskit import execute, Aer
 
 def check_circuit(reference, user):
@@ -10,7 +11,7 @@ def check_circuit(reference, user):
     reference_statevector = execute(reference, backend).result().get_statevector(reference)
     user_statevector = execute(user, backend).result().get_statevector(user)
 
-    return reference_statevector == user_statevector
+    return (reference_statevector == user_statevector).all()
 ###################### CHECKERS  ##########################################
 #Select the level
 from lvl import levels
