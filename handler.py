@@ -1,4 +1,5 @@
 import json
+from collections import OrderedDict
 import tornado.websocket
 
 class DuelGroup:
@@ -9,15 +10,17 @@ class DuelGroup:
         self.end = False
 
 class MultiHandler(tornado.websocket.WebSocketHandler):
-    duel_groups = []
+    duel_groups = OrderedDict()
 
     def open(self, *args, **kwargs):
-        if len(self.duel_groups) == 0 or self.duel_groups[-1].end or len(self.duel_groups[-1].members) >= DuelGroup.NUMBER_OF_MEMBERS:
-            self.duel_groups.append(DuelGroup())
+        previous_last_duel_group_key = next(reversed(self.duel_groups), None)
+        if previous_last_duel_group_key is None or self.duel_groups[previous_last_duel_group_key].end or len(self.duel_groups[previous_last_duel_group_key].members) >= DuelGroup.NUMBER_OF_MEMBERS:
+            self.duel_groups[0 if previous_last_duel_group_key is None else previous_last_duel_group_key + 1] = DuelGroup()
 
-        duel_group = self.duel_groups[-1]
+        duel_group_key = next(reversed(self.duel_groups))
+        duel_group = self.duel_groups[duel_group_key]
         duel_group.members.append(self)
-        self.write_message({'duel_group': len(self.duel_groups) - 1})
+        self.write_message({'duel_group': duel_group_key})
 
         if len(duel_group.members) >= DuelGroup.NUMBER_OF_MEMBERS:
             for member in duel_group.members:
@@ -35,8 +38,8 @@ class MultiHandler(tornado.websocket.WebSocketHandler):
             member.write_message({'message': 'win' if member == self else 'lose'})
 
     def on_close(self):
-        duel_group = next(filter(lambda x: self in x.members, self.duel_groups), None)
-        if duel_group:
-            duel_group.members.remove(self)
-            if len(duel_group.members) == 0:
-                self.duel_groups.remove(duel_group)
+        duel_group_key = next(filter(lambda x: self in self.duel_groups[x].members, self.duel_groups), None)
+        if duel_group_key:
+            self.duel_groups[duel_group_key].members.remove(self)
+            if len(self.duel_groups[duel_group_key].members) == 0:
+                del self.duel_groups[duel_group_key]
