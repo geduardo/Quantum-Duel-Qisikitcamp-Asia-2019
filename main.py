@@ -47,9 +47,7 @@ level_1.circ.h([0])
 level_2=Level(2,'|00>','1/sqrt(2)*(|00>+|11>)')
 
 # Here we create the circuit applying the corresponding gates:
-#------------REFERENCE CIRCUIT ----
-# 
-# -----------
+#------------REFERENCE CIRCUIT ---------------
 level_2.circ.h([0])
 level_2.circ.cx([0],[1])
 ##################################################################
