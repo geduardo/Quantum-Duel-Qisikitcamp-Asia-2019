@@ -1,8 +1,9 @@
 import os
 import tornado.ioloop
 import tornado.web
-
+from tornado.web import url
 from tornado.options import define, options
+from handler import MultiHandler
 
 define("port", default=5000, help="run on the given port", type=int)
 tornado.options.parse_command_line()
@@ -13,7 +14,8 @@ class MainHandler(tornado.web.RequestHandler):
 
 def make_app():
     return tornado.web.Application([
-        (r"/", MainHandler),
+        url(r"/", MainHandler, name='index'),
+        url(r'/multi', MultiHandler, name='multi'),
     ],
     template_path=os.path.join(os.getcwd(),  "templates"),
     static_path=os.path.join(os.getcwd(),  "static"),

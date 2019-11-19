@@ -5,6 +5,63 @@
     <link rel="stylesheet" href="{{ static_url("style.css") }}"/>
     <script src="//cdn.jsdelivr.net/npm/displacejs@1.3.2/dist/displace.min.js"></script>
     <script>
+    var socket = new WebSocket((location.host.match(/localhost/) ? 'ws://' : 'wss://') + location.host + '/multi');
+
+    var duel_group = null;
+
+    function sendAction(message) {
+        var message = {
+            duel_group: duel_group,
+            message: message,
+        };
+        socket.send(JSON.stringify(message));
+    }
+
+    socket.onopen = function(data) {
+    };
+
+    socket.onclose = function() {
+    };
+
+    socket.onmessage = function(event) {
+        console.log(event.data);
+        var data = JSON.parse(event.data);
+
+        if('duel_group' in data) {
+            duel_group = data.duel_group;
+            return;
+        }
+
+        var countdown = document.getElementById('countdown');
+        if(data.message == 'ready') {
+            countdown.style.display = 'block';
+            interval_id = setInterval(function() {
+                if(countdown.innerText.length != 1) { // Avoid NaN.
+                    clearInterval(interval_id);
+                    return;
+                }
+                --countdown.innerText;
+
+                if(countdown.innerText == 0) {
+                    countdown.innerText = 'Push Space!!!';
+                    document.addEventListener('keydown', function(e) {
+                        if(e.keyCode == 32) {
+                            sendAction('Space');
+                        }
+                    });
+                    clearInterval(interval_id);
+                }
+            }, 1000);
+        }
+        else if(data.message == 'win') {
+            countdown.innerText = 'WIN!';
+        }
+        else if(data.message == 'lose') {
+            countdown.innerText = 'LOSE...';
+        }
+    };
+
+
     LINE_SPACING = 30;
     window.addEventListener('DOMContentLoaded', function() {
         var el = document.getElementsByClassName('movable')[0];
@@ -25,6 +82,7 @@
     <div id="container">
       <div id="main">
         <p>Quantum Duel</p>
+        <p id="countdown">3</p>
         <span class="movable">X</span>
       </div>
     </div>
