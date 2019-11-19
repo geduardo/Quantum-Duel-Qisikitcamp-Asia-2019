@@ -1,5 +1,5 @@
 import numpy as np
-from qiskit import execute, Aer
+from qiskit import execute, BasicAer as Aer
 
 def check_circuit(reference, user):
     """

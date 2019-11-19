@@ -2,7 +2,7 @@ import json
 import random
 from collections import OrderedDict
 import tornado.websocket
-#from check import check_circuit
+from check import check_circuit
 from userCircuit import userCircuit
 from lvl import levels
 
@@ -45,7 +45,6 @@ class MultiHandler(tornado.websocket.WebSocketHandler):
         if message['circ'] == '':
             return
 
-        from check import check_circuit
         if not check_circuit(duel_group.level.circ, userCircuit(message['circ'])):
             return
 
