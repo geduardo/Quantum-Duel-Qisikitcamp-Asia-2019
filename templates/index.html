@@ -80,7 +80,7 @@
     function makeGates() {
         var main = document.getElementById('main');
 
-        for(var i = 0; i < 15; ++i) {
+        for(var i = 0; i < 25; ++i) {
             var movable = document.createElement('span');
             movable.style.left = i * 50 + 'px';
             movable.style.top = '350px';
@@ -89,9 +89,14 @@
                 movable.innerText = 'X';
             }
             else if(i < 10) {
+                movable.innerText = 'Z';
+            }
+            else if(i < 15) {
                 movable.innerText = 'H';
             }
             else {
+                movable.style.left = (i - 15) * 50 + 'px';
+                movable.style.top = '400px';
                 movable.style.height = '100px';
                 movable.style.background = "transparent";
 
@@ -110,6 +115,11 @@
                 var black_target = document.createElement('span');
                 black_target.classList.add('black-target');
                 movable.prepend(black_target);
+
+                if(i >= 20) {
+                    black_dot.style.top = '50px';
+                    black_target.style.top = '0px';
+                }
             }
             main.prepend(movable);
         }
@@ -141,8 +151,14 @@
                                 continue;
                             }
                             circ.push('CX');
-                            circ.push(0);
-                            circ.push(1);
+                            if(movable.getElementsByClassName('black-dot')[0].style.top != '50px') {
+                                circ.push(0);
+                                circ.push(1);
+                            }
+                            else {
+                                circ.push(1);
+                                circ.push(0);
+                            }
                             continue;
                         }
 
