@@ -3,7 +3,7 @@ from collections import OrderedDict
 import tornado.websocket
 
 class DuelGroup:
-    NUMBER_OF_MEMBERS = 2
+    NUMBER_OF_MEMBERS = 3
 
     def __init__(self):
         self.members = []
