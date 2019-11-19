@@ -61,20 +61,124 @@
         }
     };
 
+    LINE_SPACING = 50;
+    function makeLines(number) {
+        var lines = document.createDocumentFragment();
+        for(var i = 0; i < number; ++i) {
+            var span = document.createElement('span');
+            span.style.left = 0;
+            span.style.top = 200 + i * LINE_SPACING - LINE_SPACING / 2 + 'px';
+            span.style.height = '1px';
+            span.style.width = screen.width + 'px';
+            span.classList.add('line');
 
-    LINE_SPACING = 30;
-    window.addEventListener('DOMContentLoaded', function() {
-        var el = document.getElementsByClassName('movable')[0];
-        var options = {
-            //constrain: true,
-            customMove(el, x, y) {
-                var left = Math.round(x / LINE_SPACING) * LINE_SPACING;
-                var top = Math.round(y / LINE_SPACING) * LINE_SPACING;
-                el.style.left = left + 'px';
-                el.style.top = top + 'px';
+            lines.appendChild(span);
+        }
+        document.getElementById('container').prepend(lines);
+    }
+
+    function makeGates() {
+        var main = document.getElementById('main');
+
+        for(var i = 0; i < 25; ++i) {
+            var movable = document.createElement('span');
+            movable.style.left = i * 50 + 'px';
+            movable.style.top = '350px';
+            movable.classList.add('movable');
+            if(i < 5) {
+                movable.innerText = 'X';
             }
-        };
-        displacejs(el, options);
+            else if(i < 10) {
+                movable.innerText = 'Z';
+            }
+            else if(i < 15) {
+                movable.innerText = 'H';
+            }
+            else {
+                movable.style.left = (i - 15) * 50 + 'px';
+                movable.style.top = '400px';
+                movable.style.height = '100px';
+                movable.style.background = "transparent";
+
+                var line = document.createElement('span');
+                line.style.left = '23px';
+                line.style.top = '25px';
+                line.style.height = '50px';
+                line.style.width = '4px';
+                line.classList.add('line');
+                movable.prepend(line);
+
+                var black_dot = document.createElement('span');
+                black_dot.classList.add('black-dot');
+                movable.prepend(black_dot)
+
+                var black_target = document.createElement('span');
+                black_target.classList.add('black-target');
+                movable.prepend(black_target);
+
+                if(i >= 20) {
+                    black_dot.style.top = '50px';
+                    black_target.style.top = '0px';
+                }
+            }
+            main.prepend(movable);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+        makeGates();
+
+        for(var el of document.getElementsByClassName('movable')) {
+            var options = {
+                //constrain: true,
+                customMove(el, x, y) {
+                    var left = Math.round(x / LINE_SPACING) * LINE_SPACING;
+                    var top = Math.round(y / LINE_SPACING) * LINE_SPACING;
+                    el.style.left = left + 'px';
+                    el.style.top = top + 'px';
+
+                    console.log(left + ', ' + top);
+                    var movable_on_circuit = [...document.getElementsByClassName('movable')].filter(function(movable) {
+                        return ['150px', '200px'].indexOf(movable.style.top) >= 0;
+                    }).sort(function(a, b) {
+                        return parseInt(a.style.left) - parseInt(b.style.left);
+                    });
+                    circ = [];
+                    for(var movable of movable_on_circuit) {
+                        if(movable.innerText == '') {
+                            // CX
+                            if(movable.style.top == '200px') {
+                                continue;
+                            }
+                            circ.push('CX');
+                            if(movable.getElementsByClassName('black-dot')[0].style.top != '50px') {
+                                circ.push(0);
+                                circ.push(1);
+                            }
+                            else {
+                                circ.push(1);
+                                circ.push(0);
+                            }
+                            continue;
+                        }
+
+                        var qubit = -1;
+                        if(movable.style.top == '150px') {
+                            qubit = 0;
+                        }
+                        else {
+                            qubit = 1;
+                        }
+                        circ.push(movable.innerText);
+                        circ.push(qubit);
+                    }
+                    console.log(circ);
+                }
+            };
+            displacejs(el, options);
+        }
+
+        makeLines(2);
     });
     </script>
   </head>
@@ -83,7 +187,6 @@
       <div id="main">
         <p>Quantum Duel</p>
         <p id="countdown">3</p>
-        <span class="movable">X</span>
       </div>
     </div>
   </body>

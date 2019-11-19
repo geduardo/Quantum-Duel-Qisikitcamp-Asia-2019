@@ -1,15 +1,45 @@
+body{
+    user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select: none;
+    -moz-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-drag:none;
+    -khtml-user-drag:none;
+}
 p {
     color:#BEAF71;
     font-size:200%;
 }
 .movable {
     display: inline-block;
-    width: 99px;
-    height: 99px;
+    width: 49px;
+    height: 45px;
     background: #ffc107;
     cursor: move;
     top: 100px;
     left: 100px;
+    text-align: center;
+}
+.black-dot {
+    width: 49px;
+    height: 49px;
+    background-image: url(black-dot.png);
+    position: absolute;
+    background-position: center;
+    background-size: contain;
+    left: 0px;
+    top: 0px;
+}
+.black-target {
+    width: 49px;
+    height: 49px;
+    background-image: url(black-target.png);
+    position: absolute;
+    background-position: center;
+    background-size: contain;
+    left: 0px;
+    top: 50px;
 }
 #countdown {
     display: none;
@@ -21,4 +51,9 @@ p {
     transform : translate(-50%,-50%);
     width: 100px;
     text-align: center;
+}
+.line {
+    background: black; 
+    display: inline-block;
+    position: absolute;
 }
