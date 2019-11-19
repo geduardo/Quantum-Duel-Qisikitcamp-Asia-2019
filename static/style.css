@@ -11,3 +11,14 @@ p {
     top: 100px;
     left: 100px;
 }
+#countdown {
+    display: none;
+    font-size:500%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform : translate(-50%,-50%);
+    transform : translate(-50%,-50%);
+    width: 100px;
+    text-align: center;
+}
