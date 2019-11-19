@@ -1,0 +1,13 @@
+p {
+    color:#BEAF71;
+    font-size:200%;
+}
+.movable {
+    display: inline-block;
+    width: 99px;
+    height: 99px;
+    background: #ffc107;
+    cursor: move;
+    top: 100px;
+    left: 100px;
+}
