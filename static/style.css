@@ -1,15 +1,25 @@
+body{
+    user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select: none;
+    -moz-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-drag:none;
+    -khtml-user-drag:none;
+}
 p {
     color:#BEAF71;
     font-size:200%;
 }
 .movable {
     display: inline-block;
-    width: 99px;
-    height: 99px;
+    width: 49px;
+    height: 45px;
     background: #ffc107;
     cursor: move;
     top: 100px;
     left: 100px;
+    text-align: center;
 }
 #countdown {
     display: none;
@@ -21,4 +31,9 @@ p {
     transform : translate(-50%,-50%);
     width: 100px;
     text-align: center;
+}
+.line {
+    background: rgba(105,105,105,0.8);
+    display: inline-block;
+    position: absolute;
 }
