@@ -54,14 +54,32 @@
             }, 1000);
         }
         else if(data.message == 'win') {
+            playGunSound();
             countdown.style.display = 'block';
             countdown.innerText = 'WIN!';
         }
         else if(data.message == 'lose') {
+            playGunSound();
             countdown.style.display = 'block';
             countdown.innerText = 'LOSE...';
         }
     };
+
+    var musicAudio = new Audio();
+    musicAudio.src = "{{ static_url("cowboy_theme.mp3") }}";
+    musicAudio.loop = true;
+    musicAudio.volume = 0.5;
+    var gunAudio = new Audio();
+    gunAudio.src = musicAudio.src;
+    gunAudio.loop = true;
+    gunAudio.volume = 0.5;
+    function playGunSound() {
+        gunAudio.src = "{{ static_url("gun2.mp3") }}";
+        gunAudio.loop = false;
+        gunAudio.volume = 1;
+        gunAudio.load();
+        gunAudio.play();
+    }
 
     function displayState(initial_state, final_state) {
         var display_state = document.getElementById('display_state');
@@ -204,6 +222,15 @@
 
         makeLines(size);
     }
+
+    document.addEventListener('DOMContentLoaded', function(e) {
+        var audio_button = document.getElementById('audio_button');
+        audio_button.addEventListener('click', function(e) {
+            musicAudio.play();
+            gunAudio.play();
+            audio_button.style.display = 'none';
+        });
+    });
     </script>
   </head>
   <body>
@@ -215,6 +242,7 @@
       $$
       </span>
       <div id="main">
+        <input id="audio_button" value="Sound ON">
         <p id="waiting">Waiting your opponent...</p>
         <p id="display_state"></p>
         <p id="countdown">3</p>

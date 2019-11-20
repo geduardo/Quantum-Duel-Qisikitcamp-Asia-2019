@@ -83,3 +83,8 @@ p {
 #waiting {
     color: black;
 }
+#audio_button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
