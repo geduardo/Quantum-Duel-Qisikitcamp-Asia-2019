@@ -57,3 +57,8 @@ p {
     display: inline-block;
     position: absolute;
 }
+#display_state {
+    position: absolute;
+    color: black;
+    top: 0px;
+}

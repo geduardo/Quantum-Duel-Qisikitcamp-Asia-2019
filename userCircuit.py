@@ -10,14 +10,15 @@ from qiskit import *
 # In[13]:
 
 
-def userCircuit(usr_input):
+def userCircuit(usr_input, size):
 
     usr_cir = usr_input.replace('"',"").split(",")
 
-    qc = QuantumCircuit(2)
+    qc = QuantumCircuit(size)
 
     i=0
 
+    prev_i = 0
     while(i < len(usr_cir)):
         if usr_cir[i] == "X":
             i += 1
@@ -44,9 +45,13 @@ def userCircuit(usr_input):
             i += 1
             if usr_cir[i] == "0" and usr_cir[i+1] == "1":
                 qc.cx([0],[1])
-            elif usr_cir[i] == "1" and usr_cir[i+1] == "1":
+            elif usr_cir[i] == "1" and usr_cir[i+1] == "0":
                 qc.cx([1],[0])
             i += 2
+
+        if prev_i == i:
+            break
+        prev_i = i
 
     return qc
 
@@ -54,7 +59,8 @@ def userCircuit(usr_input):
 # In[14]:
 
 
-usr_input = input("user circuit:")
-uc = userCircuit(usr_input)
-print(uc)
+if __name__ == '__main__':
+    usr_input = input("user circuit:")
+    uc = userCircuit(usr_input)
+    print(uc)
 

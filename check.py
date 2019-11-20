@@ -1,5 +1,5 @@
 import numpy as np
-from qiskit import execute, Aer
+from qiskit import execute, BasicAer as Aer
 
 def check_circuit(reference, user):
     """
@@ -11,12 +11,16 @@ def check_circuit(reference, user):
     reference_statevector = execute(reference, backend).result().get_statevector(reference)
     user_statevector = execute(user, backend).result().get_statevector(user)
 
-    return (reference_statevector == user_statevector).all()
+    equivalence = np.isclose(reference_statevector, user_statevector)
+    if isinstance(equivalence, bool):
+        return equivalence
+    return equivalence.all()
 ###################### CHECKERS  ##########################################
 #Select the level
-from lvl import levels
-from user_circuit import ucirc
-i=input("Choose a level:")
-i=int(i)-1
-a=check_circuit(levels[i].circ,ucirc)
-print(a)
+if __name__ == '__main__':
+    from lvl import levels
+    from user_circuit import ucirc
+    i=input("Choose a level:")
+    i=int(i)-1
+    a=check_circuit(levels[i].circ,ucirc)
+    print(a)
