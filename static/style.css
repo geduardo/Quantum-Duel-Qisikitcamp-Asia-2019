@@ -54,18 +54,21 @@ p {
 }
 #countdown {
     display: none;
-    font-size:500%;
+    font-size: 1000%;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     -webkit-transform : translate(-50%,-50%);
     transform : translate(-50%,-50%);
-    width: 100px;
     text-align: center;
     text-shadow: 1px 1px 0 #000,
                -1px 1px 0 #000,
                1px -1px 0 #000,
                -1px -1px 0 #000;
+    /*color:#BEAF71;
+    background: -webkit-linear-gradient(270deg, #BEAF71, #0E0F01);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
 }
 .line {
     background: black; 
