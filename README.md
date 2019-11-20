@@ -10,7 +10,7 @@ Howdy partner! Here we present the first online multiplayer quantum game. Each p
 [![IMAGE ALT TEXT HERE](video.PNG)](https://www.youtube.com/watch?v=icQ9r7IRp1s&feature=youtu.be) 
 
 ## Gameplay
-
+[![IMAGE ALT TEXT HERE](juego.PNG)[]
 - The game begins when two players open the Quantum Duel game web page. 
 - The initial and final quantum states are given.
 - The players drag and drop the provided quantum gates to make a correct quantum circuit for the problem.
