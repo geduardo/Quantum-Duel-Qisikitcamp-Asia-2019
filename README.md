@@ -6,6 +6,12 @@
 
 Howdy partner! Here we present the first online multiplayer quantum game. Each player is given initial and final quantum states. The objective of the game is to build a quantum circuit to achieve such the transformation. The first to submit the correct circuit wins the duel and becomes the fastest draw in the quantum west!
 
+## Western is here
+
+Please access with two people!
+
+[https://quantum-duel.herokuapp.com/](https://quantum-duel.herokuapp.com/)
+
 ## Trailer
 [![IMAGE ALT TEXT HERE](video.PNG)](https://www.youtube.com/watch?v=icQ9r7IRp1s&feature=youtu.be) 
 
@@ -30,10 +36,6 @@ Once the game begins, a problem of the initial and final quantum states are rand
 @TRSasasusu  
 @unchalisa  
 @yoheiwaka
-
-## Website
-
-[https://quantum-duel.herokuapp.com/](https://quantum-duel.herokuapp.com/)
 
 ## Licenses 
 - The original western image is taken from: https://www.flickr.com/photos/gameraboy/30084662098/ and is under the license CC BY-NC 2.0. It has been modified to include the Qiskit logo.
