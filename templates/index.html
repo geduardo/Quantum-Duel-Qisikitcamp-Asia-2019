@@ -36,6 +36,7 @@
 
         var countdown = document.getElementById('countdown');
         if(data.message == 'ready') {
+            document.getElementById('waiting').style.display = 'none';
             countdown.style.display = 'block';
             interval_id = setInterval(function() {
                 if(countdown.innerText.length != 1) { // Avoid NaN.
@@ -206,6 +207,7 @@
     </script>
   </head>
   <body>
+    <div class="bg"></div>
     <div id="container">
       <span style="display: none">
       $$
@@ -213,7 +215,8 @@
       $$
       </span>
       <div id="main">
-        <p>Quantum Duel<span id="display_state"></p>
+        <p id="waiting">Waiting your opponent...</p>
+        <p id="display_state"></p>
         <p id="countdown">3</p>
       </div>
     </div>
