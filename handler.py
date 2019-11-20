@@ -12,7 +12,7 @@ class DuelGroup:
     def __init__(self):
         self.members = []
         self.end = False
-        self.level = levels[1]#random.choice(levels)
+        self.level = random.choice(levels)
 
 class MultiHandler(tornado.websocket.WebSocketHandler):
     duel_groups = OrderedDict()
@@ -33,6 +33,7 @@ class MultiHandler(tornado.websocket.WebSocketHandler):
                     'message': 'ready',
                     'initial_state': duel_group.level.initial_state,
                     'final_state': duel_group.level.final_state,
+                    'size': duel_group.level.size,
                     })
 
     def on_message(self, message):
@@ -45,7 +46,7 @@ class MultiHandler(tornado.websocket.WebSocketHandler):
         if message['circ'] == '':
             return
 
-        if not check_circuit(duel_group.level.circ, userCircuit(message['circ'])):
+        if not check_circuit(duel_group.level.circ, userCircuit((duel_group.level.initial_circ + ',' if duel_group.level.initial_circ is not None else '') + message['circ'], duel_group.level.size)):
             return
 
         duel_group.end = True

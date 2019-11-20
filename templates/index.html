@@ -4,6 +4,7 @@
     <title>Quantum Duel</title>
     <link rel="stylesheet" href="{{ static_url("style.css") }}"/>
     <script src="//cdn.jsdelivr.net/npm/displacejs@1.3.2/dist/displace.min.js"></script>
+    <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS_CHTML"></script>
     <script>
     var socket = new WebSocket((location.host.match(/localhost/) ? 'ws://' : 'wss://') + location.host + '/multi');
 
@@ -45,7 +46,8 @@
 
                 if(countdown.innerText == 0) {
                     countdown.style.display = 'none';
-                    makeCircuit();
+                    makeCircuit(data.size);
+                    displayState(data.initial_state, data.final_state);
                     clearInterval(interval_id);
                 }
             }, 1000);
@@ -60,10 +62,22 @@
         }
     };
 
+    function displayState(initial_state, final_state) {
+        var display_state = document.getElementById('display_state');
+        initial_state = initial_state.replace(/\|(\d+)\>/g, '\\ket{$1}');
+        initial_state = initial_state.replace(/(\d+)\/sqrt\((\d+)\)/g, '\\frac{$1}{\\sqrt{$2}}');
+        initial_state = initial_state.replace(/\*/g, '');
+        final_state = final_state.replace(/\|(\d+)\>/g, '\\ket{$1}');
+        final_state = final_state.replace(/(\d+)\/sqrt\((\d+)\)/g, '\\frac{$1}{\\sqrt{$2}}');
+        final_state = final_state.replace(/\*/g, '');
+        display_state.innerText = '$$ ' + initial_state + ' \\to ' + final_state + ' $$';
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, "display_state"]);
+    }
+
     LINE_SPACING = 50;
-    function makeLines(number) {
+    function makeLines(size) {
         var lines = document.createDocumentFragment();
-        for(var i = 0; i < number; ++i) {
+        for(var i = 0; i < size; ++i) {
             var span = document.createElement('span');
             span.style.left = 0;
             span.style.top = 200 + i * LINE_SPACING - LINE_SPACING / 2 + 'px';
@@ -76,10 +90,10 @@
         document.getElementById('container').prepend(lines);
     }
 
-    function makeGates() {
+    function makeGates(size) {
         var main = document.getElementById('main');
 
-        for(var i = 0; i < 25; ++i) {
+        for(var i = 0; i < (size == 1 ? 15 : 25); ++i) {
             var movable = document.createElement('span');
             movable.style.left = i * 50 + 'px';
             movable.style.top = '350px';
@@ -124,8 +138,8 @@
         }
     }
 
-    function makeCircuit() {
-        makeGates();
+    function makeCircuit(size) {
+        makeGates(size);
 
         for(var el of document.getElementsByClassName('movable')) {
             var options = {
@@ -144,7 +158,8 @@
                     });
                     circ = [];
                     for(var movable of movable_on_circuit) {
-                        if(movable.innerText == '') {
+                        if(['X', 'Z', 'H'].indexOf(movable.innerText) < 0) {
+                        //if(movable.innerText == '') { this code cannot work in Edge.
                             // CX
                             if(movable.style.top == '200px') {
                                 continue;
@@ -166,6 +181,9 @@
                             qubit = 0;
                         }
                         else {
+                            if(size == 1) {
+                                continue;
+                            }
                             qubit = 1;
                         }
                         circ.push(movable.innerText);
@@ -183,14 +201,19 @@
             displacejs(el, options);
         }
 
-        makeLines(2);
+        makeLines(size);
     }
     </script>
   </head>
   <body>
     <div id="container">
+      <span style="display: none">
+      $$
+      \newcommand{\bra}[1]{\left<#1\right|}\newcommand{\ket}[1]{\left|#1\right>}\newcommand{\bk}[2]{\left<#1\middle|#2\right>}\newcommand{\bke}[3]{\left<#1\middle|#2\middle|#3\right>}
+      $$
+      </span>
       <div id="main">
-        <p>Quantum Duel</p>
+        <p>Quantum Duel<span id="display_state"></p>
         <p id="countdown">3</p>
       </div>
     </div>

@@ -11,7 +11,10 @@ def check_circuit(reference, user):
     reference_statevector = execute(reference, backend).result().get_statevector(reference)
     user_statevector = execute(user, backend).result().get_statevector(user)
 
-    return (reference_statevector == user_statevector).all()
+    equivalence = np.isclose(reference_statevector, user_statevector)
+    if isinstance(equivalence, bool):
+        return equivalence
+    return equivalence.all()
 ###################### CHECKERS  ##########################################
 #Select the level
 if __name__ == '__main__':
