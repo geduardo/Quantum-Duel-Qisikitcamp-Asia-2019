@@ -6,10 +6,21 @@ body{
     -khtml-user-select:none;
     -webkit-user-drag:none;
     -khtml-user-drag:none;
+    background: white;
 }
 p {
     color:#BEAF71;
     font-size:200%;
+}
+.bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(quantum_duel.jpg);
+    background-size: cover;
+    opacity: 0.5;
 }
 .movable {
     display: inline-block;
@@ -43,14 +54,21 @@ p {
 }
 #countdown {
     display: none;
-    font-size:500%;
+    font-size: 1000%;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     -webkit-transform : translate(-50%,-50%);
     transform : translate(-50%,-50%);
-    width: 100px;
     text-align: center;
+    text-shadow: 1px 1px 0 #000,
+               -1px 1px 0 #000,
+               1px -1px 0 #000,
+               -1px -1px 0 #000;
+    /*color:#BEAF71;
+    background: -webkit-linear-gradient(270deg, #BEAF71, #0E0F01);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
 }
 .line {
     background: black; 
@@ -61,4 +79,12 @@ p {
     position: absolute;
     color: black;
     top: 0px;
+}
+#waiting {
+    color: black;
+}
+#audio_button {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

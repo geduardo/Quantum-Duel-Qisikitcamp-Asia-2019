@@ -1,6 +1,6 @@
 # Quantum Duel: Be the fastest of the Quantum West
 
-![alt text](https://github.com/geduardo/Quantum-Duel--QISKITCAMPASIA/blob/master/quantum_duel.jpg)
+![quantum duel](static/quantum_duel.jpg)
 
 ## Introduction
 
