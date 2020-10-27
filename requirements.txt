@@ -2,7 +2,7 @@ attrs==19.3.0
 certifi==2019.9.11
 cffi==1.13.2
 chardet==3.0.4
-cryptography==2.8
+cryptography==3.2
 cvxopt==1.2.3
 decorator==4.4.1
 dlx==1.0.4
